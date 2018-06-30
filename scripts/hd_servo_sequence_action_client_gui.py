@@ -50,7 +50,9 @@ class actionGUI:
         for i, servo_name in enumerate(self.servo_names):
             command = MotorCommand()
             command.joint_id = i
-            command.position = (self.servo_scales[i].get()-90.0 + self.bias_list[i])/180.0*3.14*self.dir_list[i]
+            #command.position = (self.servo_scales[i].get()-90.0 + self.bias_list[i])/180.0*3.14
+            command.position = (self.servo_scales[i].get()-90.0)*self.dir_list[i] + self.bias_list[i]
+            command.position = command.position * 3.14 / 180.0
             command.time = 200
             command.invert = False
             pts.motor_commands.append(command)
