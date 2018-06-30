@@ -16,7 +16,7 @@ from hd_servo.msg import *
 class hdServoNode:
     def __init__(self):
         try:
-            self.ser = serial.Serial('/dev/ttyACM0', 115200, timeout = 1)
+            self.ser = serial.Serial('/dev/ttyUSB0', 115200, timeout = 1)
         except:
             print "Cannot connect to the robot"
 

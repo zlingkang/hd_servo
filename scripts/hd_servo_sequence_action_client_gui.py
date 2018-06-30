@@ -9,17 +9,22 @@ from hd_servo.msg import *
 import Tkinter as tk
 from PIL import ImageTk, Image
 
+# bias = {5,-9,-7, -7,-8,+9, -9,0,3, 0,-7,-9}
+
 class actionGUI:
     def __init__(self, master):
         self.master = master
-        self.servo_names = ['hip_roll_l', 'hip_yaw_l', 'thigh_l', 'knee_l', 'ankle_pitch_l', 'ankle_roll_l',
-                'hip_roll_r', 'hip_yaw_r', 'thigh_r', 'knee_r', 'ankle_pitch_r', 'ankle_roll_r']
+        self.servo_names = ['shoulder_lf', 'thigh_lf', 'shank_lf', 'shoulder_rf', 'thigh_rf', 'shank_rf',
+                'shoulder_lb', 'thigh_lb', 'shank_lb', 'shoulder_rb', 'thigh_rb', 'shank_rb']
         self.servo_pos = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+        self.bias_list = [5, -9, -7, -7, -8, 9, -9, 0, 3, 0, -7, -9]
+        self.dir_list = [-1,1,-1, -1,1,1, -1,-1,1, -1,1,-1]
 
         self.servo_scales = []
         for r, servo_name in enumerate(self.servo_names):
             tk.Label(text = servo_name, width = 10).grid(row = r%6, column = 0 if r<6 else 2)
-            servo_scale = tk.Scale(self.servo_pos[r], orient = tk.HORIZONTAL, width = 10, to = 180)
+            servo_scale = tk.Scale(self.servo_pos[r], orient = tk.HORIZONTAL, width = 10, to = 180, length=300)
             servo_scale.set(90)
             servo_scale.grid(row = r%6, column = 1 if r<6 else 3)
             self.servo_scales.append(servo_scale)
@@ -45,8 +50,8 @@ class actionGUI:
         for i, servo_name in enumerate(self.servo_names):
             command = MotorCommand()
             command.joint_id = i
-            command.position = (self.servo_scales[i].get()-90.0)/180.0*3.14
-            command.time = 10
+            command.position = (self.servo_scales[i].get()-90.0 + self.bias_list[i])/180.0*3.14*self.dir_list[i]
+            command.time = 200
             command.invert = False
             pts.motor_commands.append(command)
         seq.points.append(pts)
