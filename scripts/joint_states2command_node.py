@@ -24,7 +24,7 @@ class hdServoNode:
         self.pub = rospy.Publisher("/hd_servo/motor_states", MotorStateList, queue_size = 4)
         self.sub = rospy.Subscriber("/hd_servo/motor_sequence_point", MotorSequencePoint, self.motorSequencePointCallback)
         self.sub_js = rospy.Subscriber("/joint_states", JointState, self.jointStatesCallback)
-        self.bias_list = [5, -9, -7, -7, -8, 9, -9, 0, 3, 0, -7, -9]
+        self.bias_list = [5, +2, -7, -7, -8, 9, -9, 0, 3, 0, -7, -9]
         self.dir_list = [-1,1,-1, -1,1,1, -1,-1,1, -1,1,-1]
 
         #publish motor states at 100hz

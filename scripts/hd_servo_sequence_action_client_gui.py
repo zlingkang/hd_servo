@@ -18,7 +18,7 @@ class actionGUI:
                 'shoulder_lb', 'thigh_lb', 'shank_lb', 'shoulder_rb', 'thigh_rb', 'shank_rb']
         self.servo_pos = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
-        self.bias_list = [5, -9, -7, -7, -8, 9, -9, 0, 3, 0, -7, -9]
+        self.bias_list = [5, +2, -7, -7, -8, 9, -9, 0, 3, 0, -7, -9]
         self.dir_list = [-1,1,-1, -1,1,1, -1,-1,1, -1,1,-1]
 
         self.servo_scales = []
